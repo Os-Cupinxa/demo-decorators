@@ -13,11 +13,16 @@ public class DemoDecoratorsApplication {
     }
 
     @Bean
-    public CommandLineRunner run(MyService myService) {
+    public CommandLineRunner run(MyService myService, MyService2 myService2) {
         return args -> {
-            MyServiceInterface serviceProxy = MyServiceProxy.createProxy(myService);
-            serviceProxy.performTask();
-            serviceProxy.performTaskNoDecorator();
+            MyServiceInterface serviceProxy1 = MyServiceProxy.createProxy(myService);
+            MyServiceInterface serviceProxy2 = MyServiceProxy.createProxy(myService2);
+            serviceProxy1.performTask();
+            serviceProxy1.performTaskNoDecorator();
+
+
+            serviceProxy2.performTask();
+            serviceProxy2.performTaskNoDecorator();
         };
     }
 }
