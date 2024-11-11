@@ -1,16 +1,30 @@
 package com.example.demodecorators;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Controller
-public class MyService {
+@Service
+public class MyService implements MyServiceInterface {
 
     @AddInfo
-    public void methodWithInfo() {
-        System.out.println("Executando método com @AddInfo...");
+    @Override
+    public void performTask() {
+        System.out.println("Executando a tarefa...");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("Tarefa finalizada.");
     }
 
-    public void methodWithoutInfo() {
-        System.out.println("Executando método sem @AddInfo...");
+    @Override
+    public void performTaskNoDecorator() {
+        System.out.println("Executando a tarefa sem decorator...");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("Tarefa finalizada sem decorator.");
     }
 }

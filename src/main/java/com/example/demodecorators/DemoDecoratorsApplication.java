@@ -1,22 +1,23 @@
 package com.example.demodecorators;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.lang.reflect.Method;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoDecoratorsApplication {
 
-    public static void main(String[] args) throws Exception {
-        MyService service = new MyService();
+    public static void main(String[] args) {
+        SpringApplication.run(DemoDecoratorsApplication.class, args);
+    }
 
-        for (Method method : service.getClass().getMethods()) {
-            if (method.isAnnotationPresent(AddInfo.class)) {
-                System.out.println("Informação adicional: Este método possui um decorador.");
-            }
-
-            method.invoke(service);
-        }
+    @Bean
+    public CommandLineRunner run(MyService myService) {
+        return args -> {
+            MyServiceInterface serviceProxy = MyServiceProxy.createProxy(myService);
+            serviceProxy.performTask();
+            serviceProxy.performTaskNoDecorator();
+        };
     }
 }
