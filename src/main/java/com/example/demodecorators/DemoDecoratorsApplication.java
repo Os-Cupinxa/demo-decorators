@@ -18,10 +18,13 @@ public class DemoDecoratorsApplication {
             MyServiceInterface serviceProxy1 = MyServiceProxy.createProxy(myService);
             MyServiceInterface serviceProxy2 = MyServiceProxy.createProxy(myService2);
             serviceProxy1.performTask();
+            System.out.println();
             serviceProxy1.performTaskNoDecorator();
+            System.out.println();
 
 
             serviceProxy2.performTask();
+            System.out.println();
             serviceProxy2.performTaskNoDecorator();
         };
     }
